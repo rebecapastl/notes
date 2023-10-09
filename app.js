@@ -38,6 +38,20 @@ app
         res.status(400).send(error);
         console.log(error);
       });
+  })
+  .delete((req, res) => {
+    Notes.deleteOne({ _id: req.body._id })
+      .then((deleted) => {
+        if (deleted.deletedCount > 0) {
+          res.status(201).send("Note successfully deleted.");
+        } else {
+          res.status(404).send("No corresponding note found.");
+        }
+      })
+      .catch((error) => {
+        res.status(400).send(error);
+        console.log(error);
+      });
   });
 
 app.route("/*").get((req, res) => {
