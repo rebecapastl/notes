@@ -39,6 +39,21 @@ app
         console.log(error);
       });
   })
+  .put((req, res) => {
+    let filter = { _id: req.body._id };
+    let update = req.body;
+
+    Notes.findOneAndUpdate(filter, update, {
+      new: true
+    })
+      .then((updated) => {
+        res.status(201).send(`Note ${updated.title} successfully updated.`);
+      })
+      .catch((error) => {
+        res.status(400).send(error);
+        console.log(error);
+      });
+  })
   .delete((req, res) => {
     Notes.deleteOne({ _id: req.body._id })
       .then((deleted) => {
