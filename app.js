@@ -31,8 +31,8 @@ app
     let newNote = new Notes(req.body);
     newNote
       .save()
-      .then((newNoteSaved) => {
-        res.status(201).send(newNoteSaved);
+      .then((noteSaved) => {
+        res.status(201).send(`Note ${noteSaved.title} successfully created.`);
       })
       .catch((error) => {
         res.status(400).send(error);
