@@ -14,7 +14,21 @@ connection.once("open", () => {
 });
 
 app
-.route("/")
+.route("/notes")
+.get((req, res) => {
+  connection
+    .collection("notes")
+    .find({})
+    .limit(50)
+    .toArray()
+    .then((notesList) => {
+      res.status(200).send(notesList);
+    })
+    .catch((error) => console.log(error));
+})
+
+app
+.route("/*")
 .get((req, res)  => {
   res.status(200).send("Welcome to the Notes App");
 });
